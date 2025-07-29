@@ -27,7 +27,7 @@
     }
     /* Hero Section */
     $1
-  background-image: url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?auto=format&fit=crop&w=1470&q=80');
+  background-image: url('https://images.unsplash.com/photo-1581090700227-1e8b91216443?auto=format&fit=crop&w=1470&q=80');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -167,14 +167,19 @@
   </style>
 </head>
 <body>
-  <section class="hero">
+  <nav style="position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.7); color: #0ff; display: flex; justify-content: center; gap: 30px; padding: 15px 0; z-index: 999; font-weight: bold;">
+    <a href="#home" style="color: #0ff; text-decoration: none;">Home</a>
+    <a href="#about" style="color: #0ff; text-decoration: none;">About Me</a>
+    <a href="#contact" style="color: #0ff; text-decoration: none;">Contact Me</a>
+  </nav>
+  <section id="home" class="hero">
     <div style="background-color: rgba(0,0,0,0.5); padding: 60px 20px; border-radius: 10px;">
     <h1>Hi, I'm Piyush Soni</h1>
     <h2>Creative Web Developer</h2>
     </div>
   </section>
 
-  <section class="about">
+  <section id="about" class="about">
     <h2>About Me</h2>
     <div class="card">I love creating animated, interactive web experiences.</div>
     <div class="card">Passionate about design, code, and motion UI.</div>
@@ -201,18 +206,21 @@
     <div class="project">
       <img src="https://via.placeholder.com/300x200.png?text=Quiz+App" alt="Quiz App" />
       <p>Quiz App</p>
+      <p style="padding: 0 10px 10px; font-size: 0.9rem;">A multiple-choice quiz app with score tracking and category selection.</p>
     </div>
     <div class="project">
       <img src="https://via.placeholder.com/300x200.png?text=ToDo+List" alt="ToDo List" />
       <p>ToDo List</p>
+      <p style="padding: 0 10px 10px; font-size: 0.9rem;">A minimalist to-do list app to manage tasks with edit and delete features.</p>
     </div>
     <div class="project">
       <img src="https://via.placeholder.com/300x200.png?text=Fitness+Tracker" alt="Fitness Tracker" />
       <p>Fitness Tracker</p>
+      <p style="padding: 0 10px 10px; font-size: 0.9rem;">A fitness tracking dashboard to log workouts and monitor progress.</p>
     </div>
   </section>
 
-  <section class="contact">
+  <section id="contact" class="contact">
     <h2>Contact Me</h2>
     <form>
       <input type="text" placeholder="Your Name" required />
@@ -235,4 +243,3 @@
   </script>
 </body>
 </html>
-
