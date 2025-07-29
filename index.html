@@ -13,6 +13,32 @@
       overflow-x: hidden;
     }
 
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 50, 0.2);
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      padding: 1em;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: #00f0ff;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px #00f0ff;
+    }
+
     header {
       height: 100vh;
       display: flex;
@@ -40,21 +66,26 @@
       z-index: 1;
     }
 
-    h1 {
-      font-size: 3em;
+    .typewriter-text {
+      display: inline-block;
+      overflow: hidden;
+      border-right: 2px solid #00f0ff;
+      white-space: nowrap;
+      animation: typing 4s steps(30, end) 1s forwards, blink 0.7s infinite;
+      font-size: 2.8em;
       color: #00f0ff;
-      text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-      margin-bottom: 10px;
+      text-shadow: 0 0 10px #00f0ff;
     }
 
-    .typewriter {
-      color: #ff66c4;
-      font-size: 1.3em;
+    .typewriter-sub {
+      display: inline-block;
+      overflow: hidden;
       border-right: 2px solid #ff66c4;
       white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      animation: typing 3s steps(30) 1s forwards, blink 0.7s infinite;
+      animation: typing 3s steps(30, end) 5s forwards, blink 0.7s infinite;
+      font-size: 1.3em;
+      color: #ff66c4;
+      margin-top: 10px;
     }
 
     @keyframes typing {
@@ -64,32 +95,6 @@
 
     @keyframes blink {
       50% { border-color: transparent; }
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      backdrop-filter: blur(10px);
-      background: rgba(0, 0, 50, 0.2);
-      display: flex;
-      justify-content: center;
-      gap: 2em;
-      padding: 1em;
-      z-index: 1000;
-    }
-
-    nav a {
-      color: #00f0ff;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      border-radius: 10px;
-      transition: background 0.3s;
-    }
-
-    nav a:hover {
-      background: rgba(0, 255, 255, 0.2);
-      box-shadow: 0 0 10px #00f0ff;
     }
 
     section {
@@ -136,6 +141,43 @@
       border: 2px solid #00f0ff;
       box-shadow: 0 0 20px #00f0ff;
     }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      margin-top: 2em;
+    }
+
+    input, textarea, button {
+      width: 80%;
+      padding: 0.8em;
+      border: none;
+      border-radius: 10px;
+      background: rgba(0, 0, 60, 0.5);
+      color: #fff;
+      font-size: 1em;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 15px #00f0ff;
+    }
+
+    button {
+      background: #00f0ff;
+      color: #000;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00bcd4;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+
   </style>
 </head>
 <body>
@@ -150,8 +192,8 @@
   <header id="home">
     <canvas id="droplets"></canvas>
     <div class="hero-content">
-      <h1>Hello, I'm Piyush Soni</h1>
-      <div class="typewriter">passionate full-stack developer</div>
+      <div class="typewriter-text">Hello, I'm Piyush Soni</div><br/>
+      <div class="typewriter-sub">passionate full-stack developer</div>
     </div>
   </header>
 
@@ -178,12 +220,17 @@
   </section>
 
   <section id="contact" class="section-box">
-    <h2>Contact</h2>
-    <p>Email: sonipiyush473@gmail.com</p>
-    <p>LinkedIn: linkedin.com/in/piyushsoni</p>
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
   </section>
 
   <script>
+    // Scroll reveal
     const sections = document.querySelectorAll('section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -191,38 +238,52 @@
       });
     }, { threshold: 0.2 });
     sections.forEach(section => observer.observe(section));
-  </script>
 
-  <!-- Water Drop Background Effect -->
-  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/ashikuzzaman/WaterShader/waterdrop.js"></script>
-  <script>
-    // Simulated droplets - replace with your own background if needed
+    // Water droplets canvas (rain effect on glass)
     const canvas = document.getElementById('droplets');
     const ctx = canvas.getContext('2d');
+    let drops = [];
 
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
 
-    function drawDroplets() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < 60; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const radius = Math.random() * 3;
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 255, 255, 0.2)`;
-        ctx.fill();
+    function createDrops() {
+      drops = [];
+      for (let i = 0; i < 200; i++) {
+        drops.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2 + 1,
+          speed: Math.random() * 1 + 0.5
+        });
       }
     }
 
+    function drawDrops() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let drop of drops) {
+        ctx.beginPath();
+        ctx.arc(drop.x, drop.y, drop.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,255,255,0.15)';
+        ctx.fill();
+        drop.y += drop.speed;
+        if (drop.y > canvas.height) {
+          drop.y = -drop.r;
+          drop.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(drawDrops);
+    }
+
     resize();
-    drawDroplets();
-    setInterval(drawDroplets, 3000);
-    window.addEventListener('resize', resize);
+    createDrops();
+    drawDrops();
+    window.addEventListener('resize', () => {
+      resize();
+      createDrops();
+    });
   </script>
 </body>
 </html>
