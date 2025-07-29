@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animated Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    section {
+      padding: 100px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Hero Section */
+    .hero {
+      background: radial-gradient(#1a1a1a, #000);
+      position: relative;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+    .hero h2 {
+      font-size: 1.5rem;
+      color: #0ff;
+      margin-top: 10px;
+      animation: typing 3s steps(30, end), blink .5s step-end infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #0ff;
+      width: 0;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    /* About Section */
+    .about .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px;
+      width: 300px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-in-out;
+    }
+    .about .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Skills */
+    .skills .bar {
+      margin: 15px 0;
+      width: 80%;
+    }
+    .skills .bar .label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .skills .bar .progress {
+      background: #222;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 20px;
+    }
+    .skills .bar .progress div {
+      background: #0ff;
+      height: 100%;
+      width: 0;
+      animation: fillBar 2s forwards;
+    }
+    @keyframes fillBar {
+      to { width: 100%; }
+    }
+
+    /* Projects */
+    .projects {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .project {
+      width: 300px;
+      margin: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #0ff;
+    }
+
+    /* Contact */
+    .contact {
+      background: linear-gradient(135deg, #111, #222);
+      position: relative;
+    }
+    .contact form {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+      width: 80%;
+      max-width: 500px;
+    }
+    .contact form input,
+    .contact form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+    }
+    .contact form button {
+      background: #0ff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Hi, I'm Piyush soni</h1>
+    <h2>Creative Web Developer</h2>
+  </section>
+
+  <section class="about">
+    <h2>About Me</h2>
+    <div class="card">I love creating animated, interactive web experiences.</div>
+    <div class="card">Passionate about design, code, and motion UI.</div>
+  </section>
+
+  <section class="skills">
+    <h2>Skills</h2>
+    <div class="bar">
+      <div class="label">HTML</div>
+      <div class="progress"><div style="width: 90%"></div></div>
+    </div>
+    <div class="bar">
+      <div class="label">CSS</div>
+      <div class="progress"><div style="width: 85%"></div></div>
+    </div>
+    <div class="bar">
+      <div class="label">JavaScript</div>
+      <div class="progress"><div style="width: 80%"></div></div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <h2>Projects</h2>
+    <div class="project">Project 1</div>
+    <div class="project">Project 2</div>
+    <div class="project">Project 3</div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <script>
+    // Scroll fade-in for about cards
+    const cards = document.querySelectorAll('.about .card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.3 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
